@@ -1,0 +1,25 @@
+{
+  "slug": "getfy-plugin-starter",
+  "name": "Getfy Plugin Starter",
+  "version": "1.0.0",
+  "description": "Template em branco para novos plugins Getfy.",
+  "type": "generic",
+  "requires": {
+    "getfy": ">=2.0.0",
+    "plugin_api": 2
+  },
+  "settings_tab": {
+    "id": "starter",
+    "label": "Starter"
+  },
+  "capabilities": [
+    { "id": "manage", "label": "Gerenciar starter" }
+  ],
+  "frontend": {
+    "entry": "dist/plugin-ui.js",
+    "manifest": "dist/ui.manifest.json",
+    "exports": {
+      "settings": "SettingsTab"
+    }
+  }
+}

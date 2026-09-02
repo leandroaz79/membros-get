@@ -1,0 +1,61 @@
+<IfModule mod_mime.c>
+    AddType application/javascript .mjs
+</IfModule>
+
+# Bloquear dotfiles (exceto .well-known para SSL)
+<IfModule mod_authz_core.c>
+    <FilesMatch "^\.(?!(well-known))">
+        Require all denied
+    </FilesMatch>
+</IfModule>
+<IfModule !mod_authz_core.c>
+    <FilesMatch "^\.(?!(well-known))">
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    RewriteEngine On
+
+    RewriteRule ^\.env(\..*)?$ - [F,L,NC]
+    RewriteRule ^\.git - [F,L,NC]
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # Handle X-XSRF-Token Header
+    RewriteCond %{HTTP:x-xsrf-token} .
+    RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
+
+    # Storage: servir arquivo estático quando public/storage (symlink) existir
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^storage/ - [L]
+
+    # Storage: fallback via Laravel (StorageServeController, sem depender de symlink)
+    RewriteRule ^storage/ index.php [L]
+
+    # Favicon da marca: versão otimizada 32px via Laravel (evita PNG grande em branco na aba)
+    RewriteRule ^brand/favicon\.png$ index.php [L]
+
+    # PWA: manifest dinâmico via Laravel (White Label)
+    RewriteRule ^manifest\.json$ index.php [L]
+
+    # Raiz: redireciona para /login (quando document root é public/)
+    RewriteRule ^/?$ /login [R=302,L]
+
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # Send Requests To Front Controller...
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>

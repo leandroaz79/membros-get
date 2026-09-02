@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://getfy.org/schemas/plugin.schema.json",
+  "title": "Getfy Plugin Manifest",
+  "type": "object",
+  "required": ["slug", "name", "version"],
+  "additionalProperties": true,
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "Identificador único do plugin (kebab-case)."
+    },
+    "name": { "type": "string", "minLength": 1 },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+",
+      "description": "SemVer (ex.: 1.0.0)."
+    },
+    "description": { "type": "string" },
+    "type": {
+      "type": "string",
+      "enum": ["generic", "gateway", "payment_gateway", "commerce", "integration", "member", "theme"]
+    },
+    "requires": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "getfy": { "type": "string", "description": "Ex.: >=2.0.0 ou ^2.0" },
+        "plugin_api": { "type": "integer", "minimum": 1, "description": "Nível da API App\\PluginSdk" }
+      }
+    },
+    "gateway": {
+      "type": "object",
+      "properties": {
+        "methods": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["pix", "card", "boleto", "pix_auto", "apple_pay", "google_pay", "paypal", "pix_parcelado"]
+          }
+        }
+      }
+    },
+    "menu": { "type": "object" },
+    "routes": { "type": "string" },
+    "public_routes": {},
+    "api_routes": {},
+    "migrations": { "type": "string" },
+    "events": { "type": "object" },
+    "commands": { "type": "array" },
+    "schedule": {},
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          { "type": "string" },
+          {
+            "type": "object",
+            "required": ["id"],
+            "properties": {
+              "id": { "type": "string" },
+              "label": { "type": "string" }
+            }
+          }
+        ]
+      }
+    },
+    "commerce_scopes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["catalog:read", "cart:write", "checkout:start", "orders:read"]
+      }
+    },
+    "settings_tab": {},
+    "integration_app": {},
+    "product_panel": {},
+    "member_area_panels": {},
+    "checkout_extensions": {},
+    "render_zones": { "type": "object" },
+    "theme": { "type": "object" },
+    "frontend": {
+      "type": "object",
+      "properties": {
+        "entry": { "type": "string" },
+        "manifest": { "type": "string" },
+        "exports": { "type": "object" },
+        "pages": { "type": "object" },
+        "checkout_gateway_slug": { "type": "string" },
+        "member_area": { "type": "object" }
+      }
+    }
+  }
+}

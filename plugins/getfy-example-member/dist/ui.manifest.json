@@ -1,0 +1,4 @@
+{
+  "exports": ["MemberPanel"],
+  "entry": "plugin-ui.js"
+}
