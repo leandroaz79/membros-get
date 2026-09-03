@@ -35,6 +35,8 @@
     RewriteRule ^resources(/|$) - [F,L,NC]
     RewriteRule ^tests(/|$) - [F,L,NC]
     RewriteRule ^node_modules(/|$) - [F,L,NC]
+    # Assets públicos de plugins (PluginAssetController). Bloqueia o restante de /plugins (código-fonte).
+    RewriteRule ^plugins/([a-z0-9\-_]+)/assets/(.*)$ public/index.php [L,QSA]
     RewriteRule ^plugins(/|$) - [F,L,NC]
     RewriteRule ^\.docker(/|$) - [F,L,NC]
     RewriteRule ^(composer\.(json|lock)|artisan|phpunit\.xml(\.dist)?)$ - [F,L,NC]

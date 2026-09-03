@@ -43,10 +43,9 @@ COPY docker/entrypoint.sh /usr/local/bin/getfy-entrypoint
 RUN chmod +x /usr/local/bin/getfy-entrypoint \
     && mkdir -p storage/framework/cache/data storage/framework/sessions storage/framework/views bootstrap/cache .docker .docker/plugins-installed \
     && mkdir -p /run/nginx \
-    && chmod -R 777 storage bootstrap/cache .docker \
-    && sed -i '/application\/javascript.*js;/a\        application\/javascript                                        mjs;' /etc/nginx/mime.types
+    && chmod -R 777 storage bootstrap/cache .docker
 
-EXPOSE 3000
+EXPOSE 80
 
 ENTRYPOINT ["/usr/local/bin/getfy-entrypoint"]
 CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]
