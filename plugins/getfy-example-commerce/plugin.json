@@ -1,0 +1,21 @@
+{
+  "slug": "getfy-example-commerce",
+  "name": "Getfy Example Commerce",
+  "version": "1.0.0",
+  "description": "Exemplo mínimo de commerce/checkout via Plugin SDK.",
+  "type": "commerce",
+  "requires": { "getfy": ">=2.0.0", "plugin_api": 2 },
+  "commerce_scopes": ["catalog:read", "checkout:start", "orders:read"],
+  "menu": {
+    "label": "Example Commerce",
+    "route": "getfy-example-commerce.index",
+    "icon": "shopping-bag"
+  },
+  "routes": "routes.php",
+  "settings_tab": { "id": "example-commerce", "label": "Example Commerce" },
+  "frontend": {
+    "entry": "dist/plugin-ui.js",
+    "manifest": "dist/ui.manifest.json",
+    "exports": { "settings": "SettingsTab" }
+  }
+}

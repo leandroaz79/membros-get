@@ -1,0 +1,4 @@
+{
+  "exports": ["PixMethod", "CardMethod", "BoletoMethod", "tokenizeCard"],
+  "entry": "plugin-ui.js"
+}

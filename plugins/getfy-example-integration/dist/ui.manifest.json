@@ -1,0 +1,4 @@
+{
+  "exports": ["IntegrationPanel"],
+  "entry": "plugin-ui.js"
+}

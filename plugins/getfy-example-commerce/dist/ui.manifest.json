@@ -1,0 +1,4 @@
+{
+  "exports": ["SettingsTab"],
+  "entry": "plugin-ui.js"
+}

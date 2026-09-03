@@ -1,0 +1,18 @@
+{
+  "slug": "getfy-example-integration",
+  "name": "Getfy Example Integration",
+  "version": "1.0.0",
+  "description": "Exemplo de integração (webhook outbound / settings).",
+  "type": "integration",
+  "requires": { "getfy": ">=2.0.0", "plugin_api": 2 },
+  "integration_app": {
+    "id": "example-integration",
+    "name": "Example Integration",
+    "description": "Envia POST para uma URL quando um pedido é pago."
+  },
+  "frontend": {
+    "entry": "dist/plugin-ui.js",
+    "manifest": "dist/ui.manifest.json",
+    "exports": { "integrations": "IntegrationPanel" }
+  }
+}
